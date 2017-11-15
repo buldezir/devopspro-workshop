@@ -9,7 +9,7 @@ res.on('*', msg => { msg.type && console.log(msg) } );
 
 res.on('create', async (req) => { 
     var item = {
-        id: Math.random(10, 99999),
+        id: Math.floor(Math.random() * 100000),
         products: [],
         status: 1,
         customer_id: req.customer_id
@@ -24,7 +24,7 @@ res.on('add_product', async (req) => {
     return item; 
 });
 
-res.on('list', async (req) => { return database.find(item => item.customer_id == req.customer_id); });
+res.on('list', async (req) => { return database.filter(item => item.customer_id == req.customer_id); });
 
 res.on('get', async (req) => {
     const payment_info = await payment_client.send({type: 'check_payment', order_id: req.id});
