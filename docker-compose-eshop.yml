@@ -1,0 +1,33 @@
+version: '2'
+services:
+  base:
+    build: .
+    image: devopsprocote/workshop
+    restart: on-failure
+
+  lb:
+    image: dockercloud/haproxy
+    links:
+      - http-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+      - 443:443
+    restart: on-failure
+
+  customer-service:
+    extends: base
+    command: node services/customer-service
+
+  order-service:
+    extends: base
+    command: node services/order-service
+
+  product-service:
+    extends: base
+    command: node services/product-service
+
+  payment-service:
+    extends: base
+    command: node services/payment-service
