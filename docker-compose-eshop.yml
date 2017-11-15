@@ -5,16 +5,25 @@ services:
     image: devopsprocote/workshop
     restart: on-failure
 
-  lb:
-    image: dockercloud/haproxy
-    links:
-      - http-server
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 80:80
-      - 443:443
-    restart: on-failure
+#  lb:
+#    image: dockercloud/haproxy
+#    links:
+#      - http-server
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    ports:
+#      - 80:80
+#      - 443:443
+#    restart: on-failure
+#
+#  http-server:
+#    extends: base
+#    command: node http-server
+#    environment:
+#      - VIRTUAL_HOST=devopspro-test.cotejs.org
+#      - BALANCE=source
+#    ports:
+#      - 5000:5000
 
   customer-service:
     extends: base
